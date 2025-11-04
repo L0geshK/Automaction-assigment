@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Automaction Assigmant " parallel="methods">
+  <test thread-count="8" name="UI Automaction Testing">
+    <classes>
+    
+      <class name="com.ui.test.LoginTest"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
