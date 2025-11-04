@@ -14,8 +14,11 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -38,34 +41,47 @@ public abstract class BrowserUtility {
 		super();
 		this.driver.set(driver);
 	}
-
-	public BrowserUtility(String Browsername) {
-		logger.info("Launching the for: "+Browsername);
-		if (Browsername.equalsIgnoreCase("Chrome")) {
-			driver.set(new ChromeDriver());
-
-		} else if (Browsername.equalsIgnoreCase("Edge")) {
-			driver.set(new EdgeDriver());
-
-		} else {
-			logger.info("Invalid Browser name You have to enter Chrome or Edge Browser");
-			
-		}
-
-	}
 	
-	public BrowserUtility(Browser browsername) {
+	public BrowserUtility(Browser browsername,boolean isHeadless) {
 		if (browsername==Browser.CHROME) {
-			driver.set(new ChromeDriver());
+			if(isHeadless) {
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--headless");
+			options.addArguments("--windows-size=1920,1080");
+			driver.set(new ChromeDriver(options));
+			}else {
+				driver.set(new ChromeDriver());
+			}
 
 		} else if (browsername == Browser.EDGE) {
+			if(isHeadless) {
+				EdgeOptions options = new EdgeOptions();
+				options.addArguments("--headless");
+				options.addArguments("disable-gpu");
+				driver.set(new EdgeDriver(options));
+				
+				
+			}else {
 			driver.set(new EdgeDriver());
+			}
 
 		} else if (browsername == Browser.FIREFOX) {
-			driver.set(new FirefoxDriver());
+			if(isHeadless) {
+				FirefoxOptions options = new FirefoxOptions();
+				options.addArguments("--headless");
+				driver.set(new FirefoxDriver(options));
+				
+			}else {
+				driver.set(new FirefoxDriver());
+			}
+			
 
 		}
 	}
+	
+	
+	
+	
 
 	public void goToWebsite(String url) {
 		logger.info("Go to the Website :"+url);
