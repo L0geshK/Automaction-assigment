@@ -29,7 +29,7 @@ public class TestBase {
 	@BeforeMethod(description = "Load the HomePage of WebSite!!")
 	public void setUp(
 			@Optional("Chrome") String browser, 
-			@Optional("true") boolean isHeadless,
+			@Optional("false") boolean isHeadless,
 			@Optional("false") boolean isLambdaTest,
 			ITestResult result) {
 		this.isLambdaTest=isLambdaTest;
@@ -51,12 +51,12 @@ public class TestBase {
 		return h1;
 	}
 
-	@AfterMethod(description = "Tear Down the Browser!!")
+	/*@AfterMethod(description = "Tear Down the Browser!!")
 	public void tearDown() {
 		if (isLambdaTest) {
 			LambdaTestUtility.quitSession();
 		} else {
 			h1.getDriver().quit();
 		}
-	}
+	}*/
 }
